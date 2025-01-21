@@ -229,9 +229,14 @@ class ImageSelector(object):
             n_images = np.arange(len(curr_row))
             variance_laplacians = self.__get_laplacian_scores(files, n_images)
 
-            # Selecting image with low burr(high laplacian) score
-            selected_frame_of_current_cluster = curr_row[np.argmax(variance_laplacians)]
-            filtered_items.append(selected_frame_of_current_cluster)
+            if len(variance_laplacians) > 0:
+                # Selecting image with low burr(high laplacian) score
+                selected_frame_of_current_cluster = curr_row[np.argmax(variance_laplacians)]
+                filtered_items.append(selected_frame_of_current_cluster)
+            
+            else:
+                # temporary catch for situation where there are no variance laplacians
+                print("NO VARIANCE LAPLACIANS, downstream issue, ignore for now")
 
         return filtered_items
 

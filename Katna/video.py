@@ -174,7 +174,7 @@ class Video(object):
         chunked_videos = self._split(file_path)
         frame_extractor = FrameExtractor()
 
-        # Passing all the clipped videos for  the frame extraction using map function of the
+        # Passing all the clipped videos for the frame extraction using map function of the
         # multiprocessing pool
         with self.pool_extractor:
             extracted_candidate_frames = self.pool_extractor.map(
@@ -320,7 +320,9 @@ class Video(object):
 
         writer.write(file_path, top_frames)
         print("Completed processing for : ", file_path)
-
+        
+        # returning top frames for processing by caller
+        return top_frames
     def _split_large_video(self, file_path):
         """
         Splits large video file into smaller videos (based on conf) so they don't take up memory
